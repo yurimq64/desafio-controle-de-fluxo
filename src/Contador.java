@@ -4,16 +4,24 @@ public class Contador {
     public static void main(String[] args) {
         Scanner terminal = new Scanner(System.in);
 
-        System.out.println("Digite o primeiro parâmetro");
-        int parametroUm = terminal.nextInt();
+        int parametroUm = 0;
+        int parametroDois = 0;
+        boolean entradaValida = false;
 
-        System.out.println("Digite o segundo parâmetro");
-        int parametroDois = terminal.nextInt();
+        while (!entradaValida) {
+            System.out.println("Digite o primeiro parâmetro");
+            parametroUm = terminal.nextInt();
 
-        try {
-            contar(parametroUm, parametroDois);
-        } catch (ParametrosInvalidosException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Digite o segundo parâmetro");
+            parametroDois = terminal.nextInt();
+
+            try {
+                contar(parametroUm, parametroDois);
+                entradaValida = true;
+            } catch (ParametrosInvalidosException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Por favor, tente novamente");
+            }
         }
 
         terminal.close();
@@ -22,6 +30,9 @@ public class Contador {
     static void contar(int parametroUm, int parametroDois) throws ParametrosInvalidosException {
         if (parametroUm > parametroDois) {
             throw new ParametrosInvalidosException("O segundo parâmetro deve ser maior que o primeiro");
+        }
+        if (parametroUm == parametroDois) {
+            throw new ParametrosInvalidosException("Os parâmetros não podem ser iguais");
         }
 
         int quantidade = parametroDois - parametroUm;
